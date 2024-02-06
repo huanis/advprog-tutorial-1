@@ -14,4 +14,10 @@ String id = UUID.randomUUID().toString();
 Other than that, an entity's created datetime could be used as an ID (as long as there is no concurrency). Product name could also be used as an ID if two entities are not allowed to have the same product name.
 
 For easier implementation of CRUD, I decided to use the UUID package for exercise 1.
+
+I also noticed how in the template, the product's quantity field is set to text. I decided to change it to number and set the minimum as 0. The name field is also set to be mandatory so that there is no product without a name.
+
+Some other things I want to reflect on:
+- If the user tries to go to a URL that does not exist, it should show a page that says "404 error"
+- Input validation should be in backend rather than frontend. There should be a minimal amount of logic in frontend. But considering the fact that the backend for this is not an API, it should be fine.
 ## Exercise 2
