@@ -19,7 +19,7 @@ I also noticed how in the template, the product's quantity field is set to text.
 
 Some other things I want to reflect on:
 - If the user tries to go to a URL that does not exist, it should show a page that says "404 error"
-- Input validation should be in backend rather than frontend. There should be a minimal amount of logic in frontend. But considering the fact that the backend for this is not an API, it should be fine.
+- Input validation should be in backend rather than frontend. There should be a minimal amount of logic in frontend. It could become repetitive.
 
 One of the things learned in modul 1 is for error handling:
 "Don't return Null. Never pass Null."
@@ -27,4 +27,6 @@ One of the things learned in modul 1 is for error handling:
 I broke that rule for the product repository. I do have my reasons. When trying to find an entity using JPA Repository and it turns out the entity does not exist, the repository would return null, which makes sense because the entity does not exist. Same logic goes to this.
 
 And what if you want to update a product that does not exist? Do you end up creating a new one based on the values you want to put, or to ignore the request? I chose the second option for the sake of the Single Responsibility Principle (SRP). An update function should only be used to update an item. Not create nor delete.
+
+One thing I didn't do is handle a case in which we try to create a new product with the same productId as another product. I created the test for that and as expected, the test failed.
 ## Exercise 2
