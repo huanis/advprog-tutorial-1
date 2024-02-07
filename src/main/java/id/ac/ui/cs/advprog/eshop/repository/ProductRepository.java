@@ -13,7 +13,7 @@ public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
-        productData.add(product);
+        if (product != null) productData.add(product);
         return product;
     }
 
