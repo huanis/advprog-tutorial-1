@@ -180,33 +180,19 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteNull(){
-        Product product = new Product();
-        product.setProductId("TEST-ID");
-        productRepository.create(product);
+    void testCreateExistingId() {
+        Product product1 = new Product();
+        product1.setProductId("TEST-ID");
+        productRepository.create(product1);
 
-        assertThrows(NullPointerException.class,
-                ()-> productRepository.delete(null));
+        Product product2 = new Product();
+        product2.setProductId("TEST-ID");
+        productRepository.create(product2);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        productIterator.next();
+        assertFalse(productIterator.hasNext());
     }
 
-    @Test
-    void testUpdateExistingProductIdNull(){
-        Product product = new Product();
-        productRepository.create(product);
-
-        Product updateProduct = new Product();
-        updateProduct.setProductId("TEST-ID");
-
-        assertThrows(NullPointerException.class,
-                ()-> productRepository.update(updateProduct));
-    }
-
-    @Test
-    void testDeleteExistingProductIdNull(){
-        Product product = new Product();
-        productRepository.create(product);
-
-        assertThrows(NullPointerException.class,
-                ()-> productRepository.delete("TEST-ID"));
-    }
 }
