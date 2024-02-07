@@ -39,6 +39,12 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testFindAllIfEmpty() {
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
         product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
@@ -58,6 +64,60 @@ public class ProductRepositoryTest {
         assertEquals(product1.getProductId(), savedProduct.getProductId());
         savedProduct = productIterator.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testUpdateAndFindByProductId() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product updateProduct = new Product();
+        updateProduct.setProductId(product1.getProductId());
+        updateProduct.setProductName("Kecap Asin");
+        updateProduct.setProductQuantity(50);
+        Product outputProduct = productRepository.update(updateProduct);
+
+        Product updatedProduct = productRepository.findByProductId(product1.getProductId());
+
+        assertEquals(outputProduct, updatedProduct);
+
+        assertEquals(product1.getProductId(), updatedProduct.getProductId());
+        assertEquals(updatedProduct.getProductName(), updateProduct.getProductName());
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        Product savedProduct = productIterator.next();
+        assertEquals(product1.getProductId(), savedProduct.getProductId());
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testUpdateAndFindByProductIdNotExist() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product updateProduct = new Product();
+        updateProduct.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        updateProduct.setProductName("Kecap Asin");
+        updateProduct.setProductQuantity(50);
+        Product outputProduct = productRepository.update(updateProduct);
+
+        Product updatedProduct = productRepository.findByProductId(updateProduct.getProductId());
+
+        assertEquals(outputProduct, updatedProduct);
+        assertNull(outputProduct);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        Product savedProduct = productIterator.next();
+        assertEquals(product1, savedProduct);
         assertFalse(productIterator.hasNext());
     }
 }

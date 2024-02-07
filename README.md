@@ -19,7 +19,7 @@ I also noticed how in the template, the product's quantity field is set to text.
 
 Some other things I want to reflect on:
 - If the user tries to go to a URL that does not exist, it should show a page that says "404 error"
-- Input validation should be in backend rather than frontend. There should be a minimal amount of logic in frontend. But considering the fact that the backend for this is not an API, it should be fine.
+- Input validation should be in backend rather than frontend. There should be a minimal amount of logic in frontend. It could become repetitive.
 
 One of the things learned in modul 1 is for error handling:
 "Don't return Null. Never pass Null."
