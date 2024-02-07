@@ -30,3 +30,17 @@ And what if you want to update a product that does not exist? Do you end up crea
 
 One thing I didn't do is handle a case in which we try to create a new product with the same productId as another product. I created the test for that and as expected, the test failed.
 ## Exercise 2
+1. After writing the unit test, how do you feel? How many unit tests should be made in a class? How to make sure that our unit tests are enough to verify our program? It would be good if you learned about code coverage. Code coverage is a metric that can help you understand how much of your source is tested. If you have 100% code coverage, does that mean your code has no bugs or errors?
+
+Answer:
+
+How many unit tests should be made in a class depends on how many flows/cases could be run through the class. Ideally, there is a unit test for every case. Code coverage itself tells us the percentage of lines covered by our tests. However, having a 100% code coverage does not mean that there are no bugs or errors. It could be that our code doesn't handle errors properly. There is already an example in my code.
+
+If you were to erase the unit test in ProductRepositoryTest.java that tests how the code handles the case in which we want to create a product with an ID that already exist in the product list, the code coverage stays at 100%.
+
+2. Suppose that after writing the CreateProductFunctionalTest.java along with the corresponding test case, you were asked to create another functional test suite that verifies the number of items in the product list. You decided to create a new Java class similar to the prior functional test suites with the same setup procedures and instance variables.
+   What do you think about the cleanliness of the code of the new functional test suite? Will the new code reduce the code quality? Identify the potential clean code issues, explain the reasons, and suggest possible improvements to make the code cleaner!
+
+Answer:
+
+The code quality *may* decrease due to duplicates on multiple files, but a lot of times, tests are excluded from quality gates. But, when we want to change the setup and each one must be the same, then it would be a repetitive work. Perhaps it would be best to create a superclass for the setup and every other functional test classes would be the subclass of it.
