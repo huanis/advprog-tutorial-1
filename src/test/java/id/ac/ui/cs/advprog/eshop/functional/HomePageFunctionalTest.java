@@ -40,8 +40,18 @@ public class HomePageFunctionalTest {
     void pageTitle_isCorrect(ChromeDriver driver) throws  Exception {
         // Exercise
         driver.get(baseUrl);
+        String pageTitle = driver.getTitle();
+
+        // Verify
+        assertEquals("ADV Shop", pageTitle);
+    }
+
+    @Test
+    void welcomeMessage_homePage_isCorrect(ChromeDriver driver) throws  Exception {
+        // Exercise
+        driver.get(baseUrl);
         String welcomeMessage = driver.findElement(By.tagName("h3"))
-                                      .getText();
+                .getText();
 
         // Verify
         assertEquals("Welcome", welcomeMessage);
