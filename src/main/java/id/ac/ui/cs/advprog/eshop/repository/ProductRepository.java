@@ -18,9 +18,18 @@ public class ProductRepository {
             if (product.getProductId() == null){
                 product.setProductId(UUID.randomUUID().toString());
             }
-            productData.add(product);
+            if (!checkExist(product.getProductId())) {
+                productData.add(product);
+            }
         }
         return product;
+    }
+
+    private boolean checkExist(String productId){
+        for (Product product : productData){
+            if (product.getProductId().equals(productId)) return true;
+        }
+        return false;
     }
 
     public Iterator<Product> findAll() {
