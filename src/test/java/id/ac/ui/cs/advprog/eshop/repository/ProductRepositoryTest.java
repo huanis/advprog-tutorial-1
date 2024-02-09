@@ -172,7 +172,6 @@ public class ProductRepositoryTest {
     @Test
     void testUpdateNull(){
         Product product = new Product();
-        product.setProductId("TEST-ID");
         productRepository.create(product);
 
         assertThrows(NullPointerException.class,
