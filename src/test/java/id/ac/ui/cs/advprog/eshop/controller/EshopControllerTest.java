@@ -20,7 +20,7 @@ public class EshopControllerTest {
         mockMvc.perform(get(""))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("homePage"))
-                .andExpect(view().name("/home"));
+                .andExpect(view().name("home"));
     }
 
 }

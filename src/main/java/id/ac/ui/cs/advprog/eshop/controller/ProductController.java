@@ -20,7 +20,7 @@ public class ProductController {
     public String createProductPage(Model model){
         Product product = new Product();
         model.addAttribute("product", product);
-        return "/createProduct";
+        return "createProduct";
     }
 
     @PostMapping("/create")
@@ -41,7 +41,7 @@ public class ProductController {
         Product product = service.findByProductId(productId);
         if (product == null) return "redirect:list";
         model.addAttribute("product", product);
-        return "/updateProduct";
+        return "updateProduct";
     }
 
     @PostMapping("/update")

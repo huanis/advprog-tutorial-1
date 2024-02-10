@@ -10,7 +10,7 @@
 <div class="container">
     <h3>Create New Product</h3>
 
-    <form th:action="@{/product/create}" th:object="${product}" method="post">
+    <form th:action="@{product/create}" th:object="${product}" method="post">
         <div class="form-group">
             <label for="nameInput">Name</label>
             <input th:field="*{productName}" type="text" required="required" class="form-control mb-4 col-4" id="nameInput" placeholder="Enter product' name">
