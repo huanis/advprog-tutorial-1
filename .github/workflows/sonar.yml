@@ -3,9 +3,6 @@ name: Sonar Integration
 ## Run CI jobs on all branches by default
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
   sonar:
