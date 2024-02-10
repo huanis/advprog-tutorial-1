@@ -50,7 +50,7 @@ public class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("productListPage"))
                 .andExpect(model().attributeExists("products"))
-                .andExpect(view().name("productList"));
+                .andExpect(view().name("/productList"));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("createProductPage"))
                 .andExpect(model().attributeExists("product"))
-                .andExpect(view().name("createProduct"));
+                .andExpect(view().name("/createProduct"));
 
     }
 
@@ -84,7 +84,7 @@ public class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("updateProductPage"))
                 .andExpect(model().attributeExists("product"))
-                .andExpect(view().name("updateProduct"));
+                .andExpect(view().name("/updateProduct"));
     }
 
     @Test

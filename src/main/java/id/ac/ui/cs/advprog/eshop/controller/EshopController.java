@@ -11,7 +11,7 @@ public class EshopController {
 
     @GetMapping("")
     public String homePage(Model model){
-        return "home";
+        return "/home";
     }
 
 }

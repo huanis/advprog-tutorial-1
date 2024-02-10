@@ -15,12 +15,12 @@ public class EshopControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void testProductList() throws Exception {
+    void testHomePage() throws Exception {
 
         mockMvc.perform(get(""))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("homePage"))
-                .andExpect(view().name("home"));
+                .andExpect(view().name("/home"));
     }
 
 }
