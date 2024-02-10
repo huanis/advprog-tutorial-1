@@ -10,7 +10,7 @@
 <div class="container">
     <h3>Update Product</h3>
 
-    <form th:action="@{product/update}" th:object="${product}" method="post">
+    <form th:action="@{'/product/update'}" th:object="${product}" method="post">
         <input type="hidden" th:value="${product.productId}" name="productId" />
         <div class="form-group">
             <label for="nameInput">Name</label>
