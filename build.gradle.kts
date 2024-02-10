@@ -72,6 +72,13 @@ tasks.test {
 	finalizedBy(tasks.jacocoTestReport)
 }
 
-tasks.jacocoTestReport {
-	dependsOn(tasks.test)
+afterEvaluate {
+	tasks.jacocoTestReport {
+		dependsOn(tasks.test)
+		classDirectories.setFrom(files(classDirectories.files.map {
+			fileTree(it) {
+				exclude("**/EshopApplication.class")
+			}
+		}))
+	}
 }
