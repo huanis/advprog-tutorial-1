@@ -9,14 +9,9 @@ jobs:
     name: Deploy to Koyeb
     runs-on: ubuntu-22.04
     steps:
-#      - name: Install and deploy with Koyeb-CLI
-#        uses: koyeb-community/install-koyeb-cli@v2
-#        with:
-#          api_token: ${{ secrets.KOYEB_API_TOKEN }}
-      # Deploy to existing Koyeb app and service
-      - name: login
-        uses: koyeb/cli:latest
-        run: koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
+      - name: Install and deploy with Koyeb-CLI
+        uses: koyeb-community/install-koyeb-cli@v2
+        with:
+          api_token: ${{ secrets.KOYEB_API_TOKEN }}
       - name: deploy
-        uses: koyeb/cli:latest
         run: koyeb service deploy --app ${{ secrets.KOYEB_APP_NAME }} --service ${{ secrets.KOYEB_SERVICE_NAME }} --artifact=target/*.jar
