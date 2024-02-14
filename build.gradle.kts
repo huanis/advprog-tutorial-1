@@ -81,5 +81,8 @@ afterEvaluate {
 				exclude("**/EshopApplication.class")
 			}
 		}))
+		reports {
+			xml.required = true
+		}
 	}
 }
