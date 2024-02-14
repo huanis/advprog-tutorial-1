@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class EshopApplicationTests {
 
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void contextLoads() {
 	}
