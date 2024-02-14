@@ -13,5 +13,3 @@ jobs:
         uses: koyeb-community/install-koyeb-cli@v2
         with:
           api_token: ${{ secrets.KOYEB_API_TOKEN }}
-      - name: deploy
-        run: koyeb service deploy --app ${{ secrets.KOYEB_APP_NAME }} --service ${{ secrets.KOYEB_SERVICE_NAME }} --artifact=target/*.jar
