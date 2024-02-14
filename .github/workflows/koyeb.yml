@@ -1,0 +1,17 @@
+name: Deploy to Koyeb
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    name: Deploy to Koyeb
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install and deploy with Koyeb-CLI
+        uses: koyeb-community/install-koyeb-cli@v2
+        with:
+          api_token: ${{ secrets.KOYEB_API_TOKEN }}
+          app_name: ${{ secrets.KOYEB_APP_NAME }}
+          service_name: ${{ secrets.KOYEB_APP_NAME }}
