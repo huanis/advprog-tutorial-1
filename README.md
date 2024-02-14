@@ -1,4 +1,4 @@
-# Reflection
+# Reflection Module 1
 ## Exercise 1
 I noticed that when a user creates a new product, the product is not assigned an ID (a unique value, different for every entity of the same model). This is not ideal as there is a possibility of two different entities to have the same values. Without IDs, there would be no method to differentiate them, leading to difficulties in updating and deleting one of them. The system would not know which one to update/delete which could lead to scenarios such as:
 1. Updating/deleting the wrong entity
@@ -44,3 +44,30 @@ If you were to erase the unit test in ProductRepositoryTest.java that tests how 
 Answer:
 
 The code quality *may* decrease due to duplicates on multiple files, but a lot of times, tests are excluded from quality gates. But, when we want to change the setup and each one must be the same, then it would be a repetitive work. Perhaps it would be best to create a superclass for the setup and every other functional test classes would be the subclass of it.
+
+
+# Reflection Module 2
+## Exercise 1
+- Sonar master branch: https://sonarcloud.io/summary/new_code?id=huanis_advprog-tutorial-2-2024&branch=master
+- Koyeb URL: https://advshop-huanis.koyeb.app/
+
+1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
+
+**Answer**:
+
+You can check in https://github.com/huanis/advprog-tutorial-1/pull/18
+- field injection to constructor injection ProductController and ProductServiceImpl
+- create a constant rather than duplicating "redirect:list"
+- remove public modifier for all test classes
+- surpress warning that says to put at least 1 assertion to EshopApplicationTests
+
+There's not much of a strategy. I just check each issues, read why they are issues, look for solutions, and then implement those solutions. If it is an issue that can't be resolved (usually this is the case of overcomplexity in a single method that I can't break down), I would have to surpress the warning. After changing the code, I would run the test again to see if I broke any functionality.
+
+
+2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
+
+**Answer**:
+
+- It does meet the definition of Continuous Integration. It automatically runs the tests in the project and automatically runs sonar everytime we push a new code into the repository. If one of these automated process failed, then it will alert the user responsible to it.
+- For Continuous Deployment, I tried referencing https://github.com/koyeb/example-spring-boot/blob/main/.github/workflows/deploy.yaml , but when it tries to deploy the application, it would fail. I have given up and turned on autodeploy in Koyeb.
+
