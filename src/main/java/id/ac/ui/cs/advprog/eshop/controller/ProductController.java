@@ -45,7 +45,7 @@ public class ProductController {
     @GetMapping("/update/{productId}")
     public String updateProductPage(Model model, @PathVariable String productId){
         Product product = service.findByProductId(productId);
-        if (product == null) return "redirect:list";
+        if (product == null) return REDIRECT_TO_LIST;
         model.addAttribute("product", product);
         return "updateProduct";
     }
