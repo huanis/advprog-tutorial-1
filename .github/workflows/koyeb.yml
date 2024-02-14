@@ -16,12 +16,3 @@ jobs:
         uses: koyeb-community/install-koyeb-cli@v2
         with:
           api_token: ${{ secrets.KOYEB_API_TOKEN }}
-
-      - name: Build and deploy the application
-        uses: koyeb/action-git-deploy@v1
-        with:
-          app-name: advshop
-          service-name: eclipse-temurin
-          service-ports: "8080:http"
-          service-routes: "/:8080"
-          skip-cache: true
