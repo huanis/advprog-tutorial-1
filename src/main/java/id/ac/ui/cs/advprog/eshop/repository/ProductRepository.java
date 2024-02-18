@@ -38,7 +38,7 @@ public class ProductRepository {
 
     public Product findByProductId(String productId){
         for (Product product : productData){
-            if (productId.equals(product.getProductId())){
+            if (product.getProductId().equals(productId)){
                 return product;
             }
         }
