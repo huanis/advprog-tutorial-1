@@ -19,7 +19,7 @@ public class ProductController {
     private ProductService service;
 
     private static final String REDIRECT_TO_LIST = "redirect:list";
-
+    
     @GetMapping("/create")
     public String createProductPage(Model model){
         Product product = new Product();
@@ -66,7 +66,7 @@ public class ProductController {
 class CarController extends ProductController{
     @Autowired
     private CarServiceImpl carService;
-
+    
     @GetMapping("/createCar")
     public String createCarPage(Model model) {
         Car car = new Car();
@@ -86,22 +86,22 @@ class CarController extends ProductController{
         model.addAttribute("cars", allCars);
         return "carList";
     }
-
+    
     @GetMapping("/editCar/{carId}")
     public String editCarPage(@PathVariable String carId, Model model){
         Car car = carService.findById(carId);
         model.addAttribute("car", car);
         return "editCar";
     }
-
+    
     @PostMapping("/editCar")
     public String editCarPost(@ModelAttribute Car car, Model model){
         System.out.println(car.getCarId());
         carService.update(car.getCarId(), car);
-
+        
         return "redirect:listCar";
     }
-
+    
     @PostMapping("/deleteCar")
     public String deleteCar(@RequestParam("carId") String carId){
         carService.deleteCarById(carId);
