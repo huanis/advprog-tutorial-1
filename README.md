@@ -71,3 +71,20 @@ There's not much of a strategy. I just check each issues, read why they are issu
 - It does meet the definition of Continuous Integration. It automatically runs the tests in the project and automatically runs sonar everytime we push a new code into the repository. If one of these automated process failed, then it will alert the user responsible to it.
 - For Continuous Deployment, I tried referencing https://github.com/koyeb/example-spring-boot/blob/main/.github/workflows/deploy.yaml , but when it tries to deploy the application, it would fail. I have given up and turned on autodeploy in Koyeb.
 
+# Reflection Module 3
+1. **SRP:** Single Responsibility Principle
+
+Answer: The code in the `before-solid` branch violates SRP. This is because CarController is a subclass of ProductController. In this case, the class CarController will automatically inherit the every properties and methods ProductController has. This results in CarController having two responsibilities, which are being the controller of 'product' feature and the controller of 'car' feature. This is why I decided to erase that class and create a new CarController that is not a subclass of other controllers.
+2. **OCP:** Open-Close Principle
+
+Answer: 
+3. **LSP:** Liskov Substitution Principle
+
+Answer: 
+4. **ISP:** Interface Segregation Principle
+
+Answer: 
+5. **DIP:** Dependency Inversion Principle
+
+Answer:
+
