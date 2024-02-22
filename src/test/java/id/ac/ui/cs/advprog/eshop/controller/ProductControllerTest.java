@@ -30,9 +30,6 @@ class ProductControllerTest {
     @MockBean
     private ProductService service;
 
-    @MockBean
-    private CarServiceImpl carService;
-
     private Product product;
 
     private ObjectMapper mapper;

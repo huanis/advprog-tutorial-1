@@ -71,3 +71,42 @@ There's not much of a strategy. I just check each issues, read why they are issu
 - It does meet the definition of Continuous Integration. It automatically runs the tests in the project and automatically runs sonar everytime we push a new code into the repository. If one of these automated process failed, then it will alert the user responsible to it.
 - For Continuous Deployment, I tried referencing https://github.com/koyeb/example-spring-boot/blob/main/.github/workflows/deploy.yaml , but when it tries to deploy the application, it would fail. I have given up and turned on autodeploy in Koyeb.
 
+# Reflection Module 3
+### Explain what principles you apply to your project!
+Principles applied: **SRP**, **ISP**, and **DIP**
+
+**SRP:** Single Responsibility Principle
+
+The code in the `before-solid` branch violates SRP. This is because CarController is a subclass of ProductController. In this case, the class CarController will automatically inherit the every properties and methods ProductController has. This results in CarController having two responsibilities, which are being the controller of 'product' feature and the controller of 'car' feature. This is why I decided to erase that class and create a new CarController that is not a subclass of other controllers.
+
+Other than that, this application implements SRP considering the fact that there is a clear separation of each MVC layers. Classes inside the Model module is responsible for the model layer. Classes inside the Service module is responsible for the business logic. Classes inside the Controller module is responsible for the routing. Classes inside the Repository module is responsible for database manipulation.
+
+**OCP:** Open-Close Principle
+
+There is currently no need for me to implement OCP unless Car is a subclass of Product. In that case, then we can have Car extends Product and then we wouldn't need the properties "carId", "carColor", and "carQuantity".
+
+**LSP:** Liskov Substitution Principle
+
+Same answer as OCP. In the case of a Car being a subclass of Product, then the car should also be listed as product in the product list. This also means that their repositories should be somewhat connected. If a car is created, then it should be persisted inside the list of cars and list of products.
+
+**ISP:** Interface Segregation Principle
+
+"*Rather than having one comprehensive interface, it's advocated to have multiple interfaces, each catering to distinct client needs with specific responsibilities.*" The fact that each services have their own different interface separated by distinct business responsibility is proof enough that this application implements ISP.
+
+**DIP:** Dependency Inversion Principle
+
+DIP presses on the concept of abstraction. Note that whenever we want to use a service, we don't call by the implementation, instead we call by their interface. This applies a degree of abstraction as we won't be exposed to methods that are in the implementation but are not defined by the interface, making it simpler. Sometimes there are multiple implementations of the same service. By calling the service's interface, we won't know which implementation is actually used. All we know from the interface is the method's name, its parameters, and the data type of its output.
+
+## Explain the advantages of applying SOLID principles to your project with examples.
+
+The application of SOLID principles offers maintainability, reusability, and readability.
+- SRP makes sure that we have a clear distinction between application components. This way, if we find a bug for a certain part, we would have an immediate hunch on where to look. Before I create a new file for CarController, the CarController is inside the ProductController. If there were any bugs in the CarController and we're new to the repository, we probably wouldn't think of looking through the ProductController file, assuming that it is only responsible for product.
+- LSP makes sure that when an object is a subtype of another object, then said object has the base behaviors of their supertypes. For example, there are flying robots, which are a subtype of robot. They could be turned on and deployed, the same as any other robots. The only difference i that they could fly.
+- ISP makes sure that you only implement what you need to implement. A camera should implement the lens interface but it doesn't need to implement the engine interface. A robot might need both interfaces. A land robot doesn't have to implement the flying interface.
+
+## Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+When used carelessly, SOLID principles could make the code more complex than necessary and unreadable. Codes that are fine the way they are being forced into implementing SOLID principle.
+- For example, for the sake of implementing SRP, someone decided to breakdown the repository class into four different classes, which are CreateProductRepository, ReadProductRepository, UpdateProductRepository, DeleteProductRepository. This could lead the developer to feel fatigued as thye would have to traverse to too many classes when they could have simply been methods of the same class.
+- ISP without proper categorizing may be difficult to read. When every interface is put in the same module, on the same hierarchy and there are loads of them. Looking for a specific interface may become a hassle.
+
