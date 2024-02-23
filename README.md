@@ -106,7 +106,11 @@ The application of SOLID principles offers maintainability, reusability, and rea
 
 ## Explain the disadvantages of not applying SOLID principles to your project with examples.
 
-When used carelessly, SOLID principles could make the code more complex than necessary and unreadable. Codes that are fine the way they are being forced into implementing SOLID principle.
+Not applying SOLID principles to my project may lead to high coupling and low readability. This may result in difficulties on applying upgrades or changes to the code. For example:
+- For example, rather than creating a separate class to persist Product into the database (ProductRepository), you decided to persist to the database through ProductService in the same method as the business process, when another service wants to persist a product, they would have to create new lines of codes to persist it in their own service rather than reuse the ones in the ProductService. This example violates SRP. If we separate the repository and the service, then we can reuse the repository for other services.
+- If we don't use OCP, chances are we end up changing an existing code. This may lead to the code logic to change and a functionality to be damaged.
+
+At the same time, when used carelessly, SOLID principles could make the code more complex than necessary and unreadable. Codes that are fine the way they are being forced into implementing SOLID principle.
 - For example, for the sake of implementing SRP, someone decided to breakdown the repository class into four different classes, which are CreateProductRepository, ReadProductRepository, UpdateProductRepository, DeleteProductRepository. This could lead the developer to feel fatigued as thye would have to traverse to too many classes when they could have simply been methods of the same class.
 - ISP without proper categorizing may be difficult to read. When every interface is put in the same module, on the same hierarchy and there are loads of them. Looking for a specific interface may become a hassle.
 
