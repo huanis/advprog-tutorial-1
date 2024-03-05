@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -13,11 +15,11 @@ public class PaymentTest {
     @Test
     void testCreatePaymentSuccess(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VOUCHER_CODE", "SUCCESS", paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), PaymentStatus.SUCCESS.getValue(), paymentData);
 
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
-        assertEquals("VOUCHER_CODE", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         assertEquals(paymentData, payment.getPaymentData());
     }
 
@@ -25,7 +27,7 @@ public class PaymentTest {
     void testCreatePaymentInvalidMethod(){
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    "INVALID", "SUCCESS", paymentData);
+                    "INVALID", PaymentStatus.SUCCESS.getValue(), paymentData);
         });
     }
 
@@ -33,31 +35,31 @@ public class PaymentTest {
     void testCreatePaymentInvalidStatus(){
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    "VOUCHER_CODE", "INVALID", paymentData);
+                    PaymentMethod.VOUCHER_CODE.getValue(), "INVALID", paymentData);
         });
     }
 
     @Test
     void testSetStatusPendingToRejected(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VOUCHER_CODE", "PENDING", paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), PaymentStatus.PENDING.getValue(), paymentData);
 
-        payment.setStatus("REJECTED");
-        assertEquals("REJECTED", payment.getStatus());
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testSetStatusNotPendingToOther(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VOUCHER_CODE", "SUCCESS", paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), PaymentStatus.SUCCESS.getValue(), paymentData);
 
-        assertThrows(IllegalStateException.class, () -> payment.setStatus("REJECTED"));
+        assertThrows(IllegalStateException.class, () -> payment.setStatus(PaymentStatus.REJECTED.getValue()));
     }
 
     @Test
     void testSetStatusToInvalidStatus(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VOUCHER_CODE", "PENDING", paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), PaymentStatus.PENDING.getValue(), paymentData);
 
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("INVALID"));
     }
