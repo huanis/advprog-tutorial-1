@@ -80,7 +80,8 @@ public class PaymentServiceImplTest {
         // returns payment
         Payment result = paymentService.addPayment(orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
 
-        assertEquals(payment, result);
+        assertEquals(payment.getId(), result.getId());
+        assertEquals(payment.getStatus(), result.getStatus());
     }
 
     @Test
@@ -111,7 +112,8 @@ public class PaymentServiceImplTest {
             paymentData.put("voucherCode", invalidCode);
             Payment result = paymentService.addPayment(orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
 
-            assertNull(result);
+            assertEquals(payment.getId(), result.getId());
+            assertEquals(payment.getStatus(), result.getStatus());
         }
 
     }
@@ -133,7 +135,8 @@ public class PaymentServiceImplTest {
         // returns payment
         Payment result = paymentService.addPayment(orders.getFirst(), PaymentMethod.BANK_TRANSFER.getValue(), paymentData);
 
-        assertEquals(payment, result);
+        assertEquals(payment.getId(), result.getId());
+        assertEquals(payment.getStatus(), result.getStatus());
     }
 
     @Test
@@ -167,6 +170,7 @@ public class PaymentServiceImplTest {
             Payment result = paymentService.addPayment(order, PaymentMethod.BANK_TRANSFER.getValue(), paymentData);
 
             assertEquals(payment.getId(), result.getId());
+            assertEquals(payment.getStatus(), result.getStatus());
         }
     }
 
@@ -174,8 +178,6 @@ public class PaymentServiceImplTest {
     void testAddPaymentInvalidMethod(){
 
         // returns null
-
-        doThrow(IllegalArgumentException.class).when(paymentRepository).save(any(Payment.class));
         Payment result = paymentService.addPayment(orders.getFirst(), "TEST_INVALID", new HashMap<>());
 
         assertNull(result);
@@ -207,6 +209,7 @@ public class PaymentServiceImplTest {
 
         doReturn(order).when(orderService).findById(anyString());
         doReturn(order).when(orderService).updateStatus(anyString(), anyString());
+        doReturn(payment).when(paymentRepository).findById(anyString());
         Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
@@ -222,10 +225,25 @@ public class PaymentServiceImplTest {
                 PaymentStatus.PENDING.getValue(), new HashMap<>());
 
         doReturn(order).when(orderService).findById(anyString());
+        doReturn(payment).when(paymentRepository).findById(anyString());
         Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
         assertEquals(PaymentStatus.PENDING.getValue(), result.getStatus());
+    }
+
+    @Test
+    void testSetStatusPaymentNotExist(){
+        Order order = orders.getFirst();
+        Payment payment = new Payment(order.getId(), PaymentMethod.BANK_TRANSFER.getValue(),
+                PaymentStatus.PENDING.getValue(), new HashMap<>());
+
+        doReturn(order).when(orderService).findById(anyString());
+        doReturn(null).when(paymentRepository).findById(anyString());
+        Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
+
+        assertEquals(order.getId(), result.getId());
+        assertNotEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
     }
 
     @Test
