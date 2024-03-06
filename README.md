@@ -114,3 +114,23 @@ At the same time, when used carelessly, SOLID principles could make the code mor
 - For example, for the sake of implementing SRP, someone decided to breakdown the repository class into four different classes, which are CreateProductRepository, ReadProductRepository, UpdateProductRepository, DeleteProductRepository. This could lead the developer to feel fatigued as thye would have to traverse to too many classes when they could have simply been methods of the same class.
 - ISP without proper categorizing may be difficult to read. When every interface is put in the same module, on the same hierarchy and there are loads of them. Looking for a specific interface may become a hassle.
 
+# Reflection Module 3
+## Tutorial
+1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+Answer: One thing to note is that TDD is done for the sake of:
+- Correctness: The code created is correct in terms of user requirement.
+- Clean and maintainable code: The code is readable and maintaining it does not take too much time.
+- Productive workflow: What code to create is clear and directed for defined cases.
+
+There are 2 self-reflecting questions in evaluating my tests:
+- Do I have enough functional tests to reassure myself that my application really works, from the point of view of the user? No, I have not created any functional tests for order and payment. The ones for product also does not feel complete.
+- Am I testing all the edge cases thoroughly? We can't be sure when it comes to edge cases. Sometimes we think that we have created a test for all the edge cases there are, but suddenly a new case is discovered.
+- Do I have tests that check whether all my components fit together properly? Could some integrated tests do this, or are functional tests enough? I honestly feel like this is a usability problem, so I'm not sure.
+
+
+Let's not create tests for the sake of creating tests. We really need to only test possible cases and not overdo it. I have to admit, I am struggling in implementing TDD fully, mostly because in order to create tests, I need to know the possible components that are used and the logic for the flow. I had to take notes for that. I think that it would have been easier if I used the spiking and de-spiking method.
+
+2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+Answer: Yes, I believe that I have. (FAST) My unit tests uses stubbing and mocks. (ISOLATED) All tests are atomic and does not depend on other tests. I am currently outside and my laptop's battery is close to 0. Goodbye.
