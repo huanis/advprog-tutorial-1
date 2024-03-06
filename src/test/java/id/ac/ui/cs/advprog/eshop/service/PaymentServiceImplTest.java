@@ -217,30 +217,32 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void testSetStatusOrderNotWaitingForPayment(){
+    void testSetStatusNotSuccess(){
 
         // returns payment but not changed
         Order order = orders.get(1);
         Payment payment = new Payment(order.getId(), PaymentMethod.BANK_TRANSFER.getValue(),
                 PaymentStatus.PENDING.getValue(), new HashMap<>());
 
+        // order status not waiting for payment
         doReturn(order).when(orderService).findById(anyString());
         doReturn(payment).when(paymentRepository).findById(anyString());
         Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
         assertEquals(PaymentStatus.PENDING.getValue(), result.getStatus());
-    }
 
-    @Test
-    void testSetStatusPaymentNotExist(){
-        Order order = orders.getFirst();
-        Payment payment = new Payment(order.getId(), PaymentMethod.BANK_TRANSFER.getValue(),
-                PaymentStatus.PENDING.getValue(), new HashMap<>());
-
-        doReturn(order).when(orderService).findById(anyString());
+        // payment does not exist
         doReturn(null).when(paymentRepository).findById(anyString());
-        Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
+        result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
+
+        assertEquals(order.getId(), result.getId());
+        assertNotEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
+
+        // order does not exist
+        doReturn(null).when(orderService).findById(anyString());
+
+        result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
         assertNotEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
